@@ -2,6 +2,7 @@
 Ping-Pong game made in Godot 4
 
 Ping Pong - Vs AI & 2P
+Itch.io Link: https://avy4.itch.io/ping-pong
 
 Game #1 made for the 20 games challenge.
 
