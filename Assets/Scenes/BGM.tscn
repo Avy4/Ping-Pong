@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdyrlm7s14glk"]
+
+[ext_resource type="AudioStream" uid="uid://bqvic5las755g" path="res://Assets/Other/pong - atari style music for Atari 8-bit.mp3" id="1_n6d55"]
+
+[node name="BGM" type="Node"]
+
+[node name="GangamStyle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_n6d55")
+autoplay = true
+bus = &"BGM"

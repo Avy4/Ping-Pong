@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://y2klgnvkq5ku"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/ball.gd" id="1_1y7vt"]
+[ext_resource type="Texture2D" uid="uid://dcghrdpshqwei" path="res://Assets/Other/ping_pong_ball.png" id="1_yvkaq"]
+[ext_resource type="AudioStream" uid="uid://don1qfb7mtlxi" path="res://Assets/Other/ping_pong_8bit_beeep.ogg" id="3_b4uqv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_akhnf"]
+radius = 17.0294
+
+[node name="Ball" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.174533
+script = ExtResource("1_1y7vt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_yvkaq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_akhnf")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_b4uqv")
+bus = &"Sound Effects"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

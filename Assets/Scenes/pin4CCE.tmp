@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://cukjs7wl6lw8v"]
+
+[ext_resource type="PackedScene" uid="uid://csuaovfg24jxj" path="res://Assets/Scenes/paddle.tscn" id="1_tnt2q"]
+[ext_resource type="Texture2D" uid="uid://dy0khf1bks58y" path="res://Assets/Other/table.png" id="2_t86eq"]
+[ext_resource type="Script" path="res://Assets/Scripts/scoring_boundaries.gd" id="3_rpwi2"]
+[ext_resource type="PackedScene" uid="uid://y2klgnvkq5ku" path="res://Assets/Scenes/ball.tscn" id="4_mfhhw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_s3uxq"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_36iw1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmidl"]
+size = Vector2(1159, 44)
+
+[node name="Table" type="Node"]
+
+[node name="Paddles" type="Node" parent="."]
+
+[node name="RedPaddle" parent="Paddles" instance=ExtResource("1_tnt2q")]
+position = Vector2(30, 312)
+
+[node name="BluePaddle" parent="Paddles" instance=ExtResource("1_tnt2q")]
+position = Vector2(1125, 312)
+paddle_color = 1
+
+[node name="PingPongTable" type="TextureRect" parent="."]
+z_index = -1
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_t86eq")
+
+[node name="Boundaries" type="Node" parent="."]
+
+[node name="ScoringBoundaries" type="Area2D" parent="Boundaries"]
+position = Vector2(738, 8)
+rotation = 1.5708
+script = ExtResource("3_rpwi2")
+
+[node name="LeftBoundary" type="CollisionShape2D" parent="Boundaries/ScoringBoundaries"]
+position = Vector2(-4.99997, 740)
+shape = SubResource("WorldBoundaryShape2D_s3uxq")
+
+[node name="RightBoundary" type="CollisionShape2D" parent="Boundaries/ScoringBoundaries"]
+position = Vector2(-11, -416)
+shape = SubResource("WorldBoundaryShape2D_36iw1")
+
+[node name="BouncingBoundaries" type="Node" parent="Boundaries"]
+
+[node name="TopBoundary" type="StaticBody2D" parent="Boundaries/BouncingBoundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BouncingBoundaries/TopBoundary"]
+position = Vector2(575.5, -2)
+shape = SubResource("RectangleShape2D_mmidl")
+
+[node name="BottomBoundary" type="StaticBody2D" parent="Boundaries/BouncingBoundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BouncingBoundaries/BottomBoundary"]
+position = Vector2(575.5, 654)
+shape = SubResource("RectangleShape2D_mmidl")
+
+[node name="Ball" parent="." instance=ExtResource("4_mfhhw")]
+position = Vector2(576, 324)
+mass = 0.001
+
+[connection signal="body_entered" from="Boundaries/ScoringBoundaries" to="Boundaries/ScoringBoundaries" method="_on_body_entered"]

@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=3 uid="uid://csbnqeipkxyt1"]
+
+[ext_resource type="Texture2D" uid="uid://dy0khf1bks58y" path="res://Assets/Other/table.png" id="1_to82h"]
+[ext_resource type="Script" path="res://Assets/Scripts/winner_screen.gd" id="1_vr23w"]
+[ext_resource type="FontFile" uid="uid://buyp4nf6rty4i" path="res://Assets/Other/PixeloidMono-d94EV.ttf" id="2_tpyry"]
+[ext_resource type="PackedScene" uid="uid://wt8kso0j6tje" path="res://Assets/Scenes/button.tscn" id="3_4cpyw"]
+
+[node name="WinnerScreen" type="Node"]
+script = ExtResource("1_vr23w")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+z_index = -1
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_to82h")
+
+[node name="WinnerLabel" type="Label" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -600.0
+offset_right = 600.0
+offset_bottom = 147.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_tpyry")
+theme_override_font_sizes/font_size = 96
+text = "Player XXX Won!"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -44.0
+offset_right = 356.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="PlayAgain" parent="CanvasLayer/HBoxContainer" instance=ExtResource("3_4cpyw")]
+modulate = Color(0.635294, 0, 0.243137, 1)
+custom_minimum_size = Vector2(208, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Play Again"
+
+[node name="ReturnToMenu" parent="CanvasLayer/HBoxContainer" instance=ExtResource("3_4cpyw")]
+modulate = Color(0.151244, 0.384989, 1, 1)
+custom_minimum_size = Vector2(208, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Return To Menu"
+scene_path = "res://Assets/Scenes/main_menu.tscn"

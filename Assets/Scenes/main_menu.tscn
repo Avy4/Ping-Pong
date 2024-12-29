@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhbe3g0mgh4uc"]
+
+[ext_resource type="FontFile" uid="uid://buyp4nf6rty4i" path="res://Assets/Other/PixeloidMono-d94EV.ttf" id="1_lebdd"]
+[ext_resource type="Texture2D" uid="uid://dy0khf1bks58y" path="res://Assets/Other/table.png" id="1_q5ddd"]
+[ext_resource type="PackedScene" uid="uid://wt8kso0j6tje" path="res://Assets/Scenes/button.tscn" id="4_612sd"]
+
+[node name="MainMenu" type="Node"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_q5ddd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -351.0
+offset_right = 369.0
+offset_bottom = 147.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_lebdd")
+theme_override_font_sizes/font_size = 120
+text = "Ping-Pong"
+
+[node name="Buttons" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -217.0
+offset_top = -40.0
+offset_right = 217.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="VsAI" parent="CanvasLayer/Buttons" instance=ExtResource("4_612sd")]
+modulate = Color(0.635294, 0, 0.243137, 1)
+custom_minimum_size = Vector2(192, 80)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "VS AI"
+scene_path = "res://Assets/Scenes/ai_vs_player.tscn"
+
+[node name="2P" parent="CanvasLayer/Buttons" instance=ExtResource("4_612sd")]
+modulate = Color(0.151244, 0.384989, 1, 1)
+custom_minimum_size = Vector2(192, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "2P"
+scene_path = "res://Assets/Scenes/two_player.tscn"

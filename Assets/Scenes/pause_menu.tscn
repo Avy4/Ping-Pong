@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://dta862w746g3k"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/pause_menu.gd" id="1_hwhvg"]
+[ext_resource type="FontFile" uid="uid://buyp4nf6rty4i" path="res://Assets/Other/PixeloidMono-d94EV.ttf" id="1_s3a7a"]
+[ext_resource type="PackedScene" uid="uid://wt8kso0j6tje" path="res://Assets/Scenes/button.tscn" id="2_lc4h1"]
+
+[node name="PauseMenu" type="Node"]
+process_mode = 3
+script = ExtResource("1_hwhvg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PausePanel" type="Panel" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GamePaused" type="Label" parent="CanvasLayer/PausePanel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -351.0
+offset_right = 369.0
+offset_bottom = 147.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_s3a7a")
+theme_override_font_sizes/font_size = 120
+text = "Game Paused"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PausePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = -100.0
+offset_right = 322.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="ReturnToGame" parent="CanvasLayer/PausePanel/HBoxContainer" instance=ExtResource("2_lc4h1")]
+unique_name_in_owner = true
+modulate = Color(0.635294, 0, 0.243137, 1)
+custom_minimum_size = Vector2(320, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Return To 
+Game!"
+autowrap_mode = 2
+change_type = 1
+
+[node name="BackToMenu" parent="CanvasLayer/PausePanel/HBoxContainer" instance=ExtResource("2_lc4h1")]
+unique_name_in_owner = true
+modulate = Color(0.151244, 0.384989, 1, 1)
+custom_minimum_size = Vector2(352, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back To Main Menu!"
+autowrap_mode = 3
+scene_path = "res://Assets/Scenes/main_menu.tscn"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="pressed" from="CanvasLayer/PausePanel/HBoxContainer/ReturnToGame" to="." method="_on_return_to_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/PausePanel/HBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bqvic5las755g"
+path="res://.godot/imported/pong - atari style music for Atari 8-bit.mp3-741af9290242a791d9b5b7d6ea0837cc.mp3str"
+
+[deps]
+
+source_file="res://Assets/Other/pong - atari style music for Atari 8-bit.mp3"
+dest_files=["res://.godot/imported/pong - atari style music for Atari 8-bit.mp3-741af9290242a791d9b5b7d6ea0837cc.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

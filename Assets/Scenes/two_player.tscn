@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://cukjs7wl6lw8v"]
+
+[ext_resource type="FontFile" uid="uid://buyp4nf6rty4i" path="res://Assets/Other/PixeloidMono-d94EV.ttf" id="1_1sqqv"]
+[ext_resource type="Script" path="res://Assets/Scripts/game_manager.gd" id="1_r5bf0"]
+[ext_resource type="PackedScene" uid="uid://csuaovfg24jxj" path="res://Assets/Scenes/paddle.tscn" id="1_tnt2q"]
+[ext_resource type="Texture2D" uid="uid://dy0khf1bks58y" path="res://Assets/Other/table.png" id="2_t86eq"]
+[ext_resource type="AudioStream" uid="uid://dupyglk7y3xdw" path="res://Assets/Other/VictorySmall.mp3" id="3_4jvxk"]
+[ext_resource type="PackedScene" uid="uid://dta862w746g3k" path="res://Assets/Scenes/pause_menu.tscn" id="4_8ed4b"]
+[ext_resource type="PackedScene" uid="uid://y2klgnvkq5ku" path="res://Assets/Scenes/ball.tscn" id="4_mfhhw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_s3uxq"]
+normal = Vector2(-3.55641e-06, -1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_36iw1"]
+normal = Vector2(3.11434e-06, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmidl"]
+size = Vector2(1159, 44)
+
+[node name="Table" type="Node"]
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_r5bf0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameManager"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -112.0
+offset_top = 4.0
+offset_right = 122.0
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_constants/separation = 83
+alignment = 1
+
+[node name="RedPoints" type="Label" parent="GameManager/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0.580392, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_1sqqv")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+
+[node name="BluePoints" type="Label" parent="GameManager/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(0.151244, 0.384989, 1, 1)
+theme_override_fonts/font = ExtResource("1_1sqqv")
+theme_override_font_sizes/font_size = 80
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="GameManager"]
+stream = ExtResource("3_4jvxk")
+bus = &"Sound Effects"
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_8ed4b")]
+
+[node name="Paddles" type="Node" parent="."]
+
+[node name="RedPaddle" parent="Paddles" instance=ExtResource("1_tnt2q")]
+unique_name_in_owner = true
+position = Vector2(20, 320)
+
+[node name="BluePaddle" parent="Paddles" instance=ExtResource("1_tnt2q")]
+unique_name_in_owner = true
+position = Vector2(1132, 320)
+paddle_color = 1
+
+[node name="PingPongTable" type="TextureRect" parent="."]
+z_index = -1
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_t86eq")
+
+[node name="Boundaries" type="Node" parent="."]
+
+[node name="ScoringBoundariesLeft" type="Area2D" parent="Boundaries"]
+position = Vector2(738, 8)
+rotation = 1.5708
+
+[node name="LeftBoundary" type="CollisionShape2D" parent="Boundaries/ScoringBoundariesLeft"]
+position = Vector2(-4.99732, 741)
+shape = SubResource("WorldBoundaryShape2D_s3uxq")
+
+[node name="ScoringBoundariesRight" type="Area2D" parent="Boundaries"]
+position = Vector2(738, 8)
+rotation = 1.5708
+
+[node name="RightBoundary" type="CollisionShape2D" parent="Boundaries/ScoringBoundariesRight"]
+position = Vector2(-11.0015, -419)
+shape = SubResource("WorldBoundaryShape2D_36iw1")
+
+[node name="BouncingBoundaries" type="Node" parent="Boundaries"]
+
+[node name="TopBoundary" type="StaticBody2D" parent="Boundaries/BouncingBoundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BouncingBoundaries/TopBoundary"]
+position = Vector2(575.5, -2)
+shape = SubResource("RectangleShape2D_mmidl")
+
+[node name="BottomBoundary" type="StaticBody2D" parent="Boundaries/BouncingBoundaries"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BouncingBoundaries/BottomBoundary"]
+position = Vector2(575.5, 654)
+shape = SubResource("RectangleShape2D_mmidl")
+
+[node name="Ball" parent="." instance=ExtResource("4_mfhhw")]
+unique_name_in_owner = true
+position = Vector2(576, 320)
+
+[connection signal="body_entered" from="Boundaries/ScoringBoundariesLeft" to="GameManager" method="_on_scoring_boundaries_left_body_entered"]
+[connection signal="body_entered" from="Boundaries/ScoringBoundariesRight" to="GameManager" method="_on_scoring_boundaries_right_body_entered"]

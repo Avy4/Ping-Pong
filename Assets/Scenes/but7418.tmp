@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://wt8kso0j6tje"]
+
+[ext_resource type="FontFile" uid="uid://buyp4nf6rty4i" path="res://Assets/Other/PixeloidMono-d94EV.ttf" id="1_owixp"]
+[ext_resource type="Script" path="res://Assets/Scripts/button.gd" id="2_5gptr"]
+[ext_resource type="Texture2D" uid="uid://cwbdqdvyl104b" path="res://Assets/Other/button_up.png" id="2_vswi4"]
+[ext_resource type="Texture2D" uid="uid://cjd3vtvc06h4b" path="res://Assets/Other/button_down.png" id="3_q4j60"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2fkxs"]
+
+[sub_resource type="Animation" id="Animation_x4igh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_vswi4")]
+}
+
+[sub_resource type="Animation" id="Animation_n3wse"]
+resource_name = "button_click"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.167, 0.333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_vswi4"), ExtResource("3_q4j60"), ExtResource("2_vswi4")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_plade"]
+_data = {
+"RESET": SubResource("Animation_x4igh"),
+"button_click": SubResource("Animation_n3wse")
+}
+
+[node name="Button" type="Button"]
+process_mode = 3
+texture_filter = 1
+offset_right = 128.0
+offset_bottom = 52.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_owixp")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_2fkxs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2fkxs")
+text = "xd"
+script = ExtResource("2_5gptr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+process_mode = 3
+z_index = -1
+z_as_relative = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_vswi4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_plade")
+}
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
