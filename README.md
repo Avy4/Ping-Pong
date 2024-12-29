@@ -1,6 +1,4 @@
 # Ping-Pong
-Ping-Pong game made in Godot 4
-
 Ping Pong - Vs AI & 2P
 
 Itch.io Link: https://avy4.itch.io/ping-pong
